@@ -114,6 +114,57 @@ app.get("/api/folders", authenticateToken, (req, res) => {
   );
 });
 
+app.get("/api/notepad", authenticateToken, (req, res) => {
+  const userId = req.user.id;
+  db.all(
+    "SELECT * FROM notepad_files WHERE user_id = ?",
+    [userId],
+    (err, files) => {
+      res.json(files);
+    }
+  );
+});
+
+app.post("/api/notepad", authenticateToken, (req, res) => {
+  const { name, content } = req.body;
+  const userId = req.user.id;
+
+  db.run(
+    "INSERT INTO notepad_files (name, content, user_id) VALUES (?, ?, ?)",
+    [name, content, userId],
+    function (err) {
+      res.json({ id: this.lastID, name, content });
+    }
+  );
+});
+
+app.get("/api/notepad/:id", authenticateToken, (req, res) => {
+  const { id } = req.params;
+  const userId = req.user.id;
+
+  db.get(
+    "SELECT * FROM notepad_files WHERE id = ? AND user_id = ?",
+    [id, userId],
+    (err, file) => {
+      res.json(file);
+    }
+  );
+});
+
+app.put("/api/notepad", authenticateToken, (req, res) => {
+  const { id, name, content } = req.body;
+  const userId = req.user.id;
+
+  db.run(
+    "UPDATE notepad_files SET name = ?, content = ? WHERE id = ? AND user_id = ?",
+    [name, content, id, userId],
+    function (err) {
+      if (err) return res.status(500).json({ error: "Error updating notepad" });
+      res.json({ id, name, content });
+    }
+  );
+});
+
 app.listen(PORT, () => {
   console.log(`To roadndo na porta ${PORT}`);
 });

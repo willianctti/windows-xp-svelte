@@ -19,6 +19,7 @@ db.serialize(() => {
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       name TEXT NOT NULL,
       icon TEXT DEFAULT '📁',
+      type TEXT DEFAULT 'folder',
       parent_id INTEGER,
       user_id INTEGER NOT NULL,
       created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -41,6 +42,19 @@ db.serialize(() => {
       FOREIGN KEY (user_id) REFERENCES users (id)
     )
   `);
+
+  db.run(
+    `
+      CREATE TABLE IF NOT EXISTS notepad_files (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        name TEXT NOT NULL,
+        content TEXT DEFAULT '',
+        user_id INTEGER NOT NULL,
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        FOREIGN KEY (user_id) REFERENCES users (id)
+      )
+    `
+  );
 });
 
 module.exports = db;
