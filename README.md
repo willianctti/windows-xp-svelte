@@ -1,6 +1,6 @@
 # Windows XP in Svelte (Pure JS!)
 
-A Windows XP simulator in browser. With authentication, register. login and create a folder in folders window. 
+A Windows XP simulator in browser. With authentication, register, login and create a folder in folders window. 
 
 ![image](https://github.com/user-attachments/assets/a12c90c4-502b-4dec-a0b8-dd087483debe)
 
