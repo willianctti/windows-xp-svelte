@@ -17,10 +17,17 @@
     }, 1000);
 
     const checkAuth = async () => {
-      const response = await fetch('http://localhost:3000/api/auth/check');
-      const data = await response.json();
-      isLoggedIn = data.isLoggedIn;
-      username = data.username;
+      try {
+        const response = await fetch('http://localhost:3000/api/auth/check', {
+          credentials: 'include'
+        });
+        const data = await response.json();
+        isLoggedIn = data.isLoggedIn;
+        username = data.username;
+        console.log('Auth status:', isLoggedIn, username);
+      } catch (error) {
+        console.error('Auth check failed:', error);
+      }
     };
 
     checkAuth();
@@ -38,11 +45,22 @@
     isLoggedIn = false;
     username = '';
     showStartMenu = false;
+    window.location.href = '/login';
   }
 
   function handleAppClick(app) { 
     const event = new CustomEvent('openWindow', { detail: app });
     window.dispatchEvent(event);
+  }
+
+  function handleMenuItemClick(type) {
+    showStartMenu = false;
+    const app = {
+      name: type === 'browser' ? 'Internet Explorer' : 'My Documents',
+      type: type === 'browser' ? 'browser' : 'documents',
+      icon: type === 'browser' ? '🌐' : '📁'
+    };
+    handleAppClick(app);
   }
 </script>
 
@@ -78,22 +96,99 @@
 {#if showStartMenu}
   <div class="start-menu">
     {#if isLoggedIn}
-      <div class="user-info">
-        <span class="user-avatar">👤</span>
-        <span class="username">{username}</span>
+      <div class="start-menu-header">
+        <div class="user-info">
+          <img src="/userImage.jpg" alt="User" class="user-avatar" />
+          <span class="username">{username}</span>
+        </div>
       </div>
-      <div class="menu-item" on:click={handleLogout}>
-        <span class="icon">🚪</span>
-        <span>Logout</span>
+      <div class="start-menu-content">
+        <div class="left-panel">
+          <div class="pinned-programs">
+            <div class="menu-item" on:click={() => handleMenuItemClick('browser')}>
+              <span class="icon">🌐</span>
+              <span>Internet Explorer</span>
+            </div>
+            <div class="menu-item">
+              <span class="icon">✉️</span>
+              <span>Outlook Express</span>
+            </div>
+          </div>
+          <div class="separator"></div>
+          <div class="menu-item" on:click={() => handleMenuItemClick('documents')}>
+            <span class="icon">📁</span>
+            <span>My Documents</span>
+          </div>
+          <div class="menu-item">
+            <span class="icon">🖼️</span>
+            <span>My Pictures</span>
+          </div>
+          <div class="menu-item">
+            <span class="icon">🎵</span>
+            <span>My Music</span>
+          </div>
+          <div class="menu-item">
+            <span class="icon">💻</span>
+            <span>My Computer</span>
+          </div>
+          <div class="separator"></div>
+          <div class="menu-item">
+            <span class="icon">⚙️</span>
+            <span>Control Panel</span>
+          </div>
+          <div class="menu-item">
+            <span class="icon">🎮</span>
+            <span>Games</span>
+          </div>
+        </div>
+
+        <div class="right-panel">
+          <div class="menu-item">
+            <span class="icon">👤</span>
+            <span>{username}</span>
+          </div>
+          <div class="menu-item">
+            <span class="icon">📂</span>
+            <span>My Documents</span>
+          </div>
+          <div class="menu-item">
+            <span class="icon">🖥️</span>
+            <span>My Recent Documents</span>
+          </div>
+          <div class="separator"></div>
+          <div class="menu-item">
+            <span class="icon">⚙️</span>
+            <span>Control Panel</span>
+          </div>
+          <div class="menu-item">
+            <span class="icon">🔍</span>
+            <span>Search</span>
+          </div>
+          <div class="menu-item">
+            <span class="icon">❓</span>
+            <span>Help and Support</span>
+          </div>
+          <div class="separator"></div>
+          <div class="menu-item" on:click={handleLogout}>
+            <span class="icon">🚪</span>
+            <span>Log Off {username}</span>
+          </div>
+          <div class="menu-item">
+            <span class="icon">⭕</span>
+            <span>Turn Off Computer</span>
+          </div>
+        </div>
       </div>
     {:else}
-      <div class="menu-item" on:click={() => window.location.href = '/login'}>
-        <span class="icon">🔑</span>
-        <span>Login</span>
-      </div>
-      <div class="menu-item" on:click={() => window.location.href = '/register'}>
-        <span class="icon">📝</span>
-        <span>Register</span>
+      <div class="start-menu-content">
+        <div class="menu-item" on:click={() => window.location.href = '/login'}>
+          <span class="icon">🔑</span>
+          <span>Login</span>
+        </div>
+        <div class="menu-item" on:click={() => window.location.href = '/register'}>
+          <span class="icon">📝</span>
+          <span>Register</span>
+        </div>
       </div>
     {/if}
   </div>
@@ -115,6 +210,84 @@
     z-index: 1000;
   }
 
+  .start-menu {
+    position: fixed;
+    bottom: 50px;
+    left: 0;
+    width: 400px;
+    height: 480px;
+    background: white;
+    border: 1px solid #0054E3;
+    border-radius: 8px 8px 0 0;
+    color: black;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
+    display: flex;
+    flex-direction: column;
+  }
+
+  .start-menu-header {
+    background: linear-gradient(to right, #0054E3, #2787F5);
+    padding: 10px;
+    height: 54px;
+  }
+
+  .user-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: white;
+  }
+
+  .user-avatar {
+    width: 40px;
+    height: 40px;
+    border: 2px solid white;
+    border-radius: 4px;
+  }
+
+  .username {
+    font-size: 14px;
+    font-weight: bold;
+  }
+
+  .start-menu-content {
+    height: calc(100% - 54px);
+    display: flex;
+  }
+
+  .left-panel {
+    width: 65%;
+    background: white;
+    border-right: 1px solid #ccc;
+    padding: 8px 0;
+  }
+
+  .right-panel {
+    width: 50%;
+    background: #D3E5FA;
+    padding: 8px 0;
+  }
+
+  .menu-item {
+    padding: 8px 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+
+  .menu-item:hover {
+    background: #2787F5;
+    color: white;
+  }
+
+  .separator {
+    height: 1px;
+    background: #ccc;
+    margin: 8px 0;
+  }
+
   .taskbar-left {
     display: flex;
     align-items: center;
@@ -132,10 +305,6 @@
     cursor: pointer;
     border: 1px solid #2d7d2d;
     border-left: none;
-  }
-
-  .start-button:hover {
-    background: linear-gradient(to bottom, #44b444 0%, #6edb53 9%, #44b444 18%, #44b444 92%, #358535 100%);
   }
 
   .windows-logo {
@@ -157,12 +326,6 @@
     height: 85%;
     background: linear-gradient(to bottom, #154aa7 0%, #67a6f7 50%, #154aa7 100%);
     margin: 0 6px;
-  }
-
-  .taskbar-right {
-    display: flex;
-    align-items: center;
-    gap: 16px;
   }
 
   .app-icons {
@@ -204,46 +367,15 @@
     font-size: 12px;
   }
 
-  .start-menu {
-    position: fixed;
-    bottom: 40px;
-    left: 0;
-    width: 300px;
-    background: rgba(0, 0, 0, 0.95);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 8px 8px 0 0;
-    padding: 12px 0;
-    color: white;
-    backdrop-filter: blur(20px);
-  }
-
-  .user-info {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding: 16px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    margin-bottom: 8px;
-  }
-
-  .user-avatar {
-    font-size: 24px;
-  }
-
-  .menu-item {
-    padding: 12px 16px;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    cursor: pointer;
-    transition: background 0.2s;
-  }
-
-  .menu-item:hover {
-    background: rgba(255, 255, 255, 0.1);
-  }
-
   .icon {
     font-size: 16px;
+    width: 20px;
+    text-align: center;
+  }
+
+  .pinned-programs {
+    padding: 8px 0;
+    border-bottom: 1px solid #ccc;
+    margin-bottom: 8px;
   }
 </style>
