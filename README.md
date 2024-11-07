@@ -1,8 +1,9 @@
 # Windows XP in Svelte (Pure JS!)
 
-A Windows XP simulator in browser. With authentication, register, login and create a folder and a notepad archive in documents window. 
+A Windows XP simulator in browser. With authentication, register, login, create a folder, create a notepad and a incredible MSN that works with chat gpt!!!. 
 
-![image](https://github.com/user-attachments/assets/a12c90c4-502b-4dec-a0b8-dd087483debe)
+![image](https://github.com/user-attachments/assets/616989de-44a0-46f4-9b60-7a1aae8b1ede)
+
 
 
 ## 🚀 Quick Start
@@ -54,6 +55,7 @@ npm run dev
 4. 🌐 Integrated Web Browser
 5. ⚙️ System Settings
 6. 🪟 Multi-window Support
+7. MSN With ChatGPT
 
 ## 🛠️ Tech Stack
 
