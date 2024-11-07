@@ -2,7 +2,8 @@
 
 A Windows XP simulator in browser. With authentication, register, login, create a folder, create a notepad and a incredible MSN that works with chat gpt!!!. 
 
-![image](https://github.com/user-attachments/assets/616989de-44a0-46f4-9b60-7a1aae8b1ede)
+![image](https://github.com/user-attachments/assets/81c785c2-802b-4a80-8792-2deb85be17ff)
+
 
 
 
