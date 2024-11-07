@@ -52,6 +52,16 @@
       <span>{title}</span>
       <button on:click={() => dispatch('close')}>✕</button>
     </div>
+    <span class="toolbar">
+      <ul>
+        <li>File</li>
+        <li>Edit</li>
+        <li>View</li>
+        <li>Favorites</li>
+        <li>Tools</li>
+        <li>Help</li>
+      </ul>
+    </span>
     <div class="content">
       <slot></slot>
     </div>
@@ -68,19 +78,38 @@
       display: flex;
       flex-direction: column;
     }
-  
+    
     .titlebar {
-      background: #333;
+      font-size: 14px;
+      font-weight: 700;
+      background: linear-gradient(to bottom, #245edb 0%, #3f8cf3 9%, #245edb 18%, #245edb 92%, #154aa7 100%); 
       color: white;
-      padding: 8px;
+      padding: 4px 6px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      cursor: move;
+      cursor: move;  
       border-radius: 8px 8px 0 0;
+    }
+
+    .toolbar {
+      padding: 3px 10px;
+      border: 2px solid #0054E1;
+      border-bottom: none;
+      background: linear-gradient(to top, #EFECDB 0%, #D9D5C0 9%, #EFECDB 18%, #e9e4cc 92%, #a09b84 100%);
+    }
+
+    .toolbar ul {
+      font-size: 10px;
+      display: flex;
+      gap: 8px;
+      list-style: none;
     }
   
     .content {
+      border-top: none;
+      border: 2px solid #0054E1;
+      border-radius:0 0 2px 2px;
       padding: 16px;
       flex-grow: 1;
       overflow: auto;
@@ -88,9 +117,19 @@
     }
   
     button {
-      background: none;
-      border: none;
-      color: white;
+      box-sizing: border-box;
+      font-size: 16px;
+      font-weight: 900;
+      text-shadow:
+        0 0 1px #000,
+        0 0 1px #000,
+        0 0 1px #000,
+        0 0 1px #000;
+        background: linear-gradient(to right, #f8f3f3 0%, #ecb7b7 9%, #ee8181 18%, #ff0000 92%, #910000 100%);
+      padding: 2px 6px;
+      border-radius: 2px;
+      border:  1px solid #ffffff;
+      color: #ffffff;
       cursor: pointer;
     }
   </style>

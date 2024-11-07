@@ -137,10 +137,11 @@
 
   .folder {
     display: flex;
-    flex-direction: column;
+    /* flex-direction: column; */
+    gap: 6px;
     align-items: center;
     cursor: pointer;
-    padding: 8px;
+    padding: 8px; 
   }
 
   .folder:hover {
