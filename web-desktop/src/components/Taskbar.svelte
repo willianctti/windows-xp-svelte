@@ -49,8 +49,10 @@
 <div class="taskbar">
   <div class="taskbar-left">
     <div class="start-button" on:click={() => showStartMenu = !showStartMenu}>
-      <span class="windows-logo">🪟</span>
+      <img src="/logo.png" alt="Windows" class="windows-logo" />
+      <span class="start-text">start</span>
     </div>
+    <div class="taskbar-separator"></div>
     
     <div class="app-icons">
       {#each pinnedApps as app}
@@ -103,42 +105,64 @@
     bottom: 0;
     left: 0;
     right: 0;
-    height: 40px;
-    background: rgba(0, 0, 0, 0.85);
+    height: 50px;
+    background: linear-gradient(to bottom, #245edb 0%, #3f8cf3 9%, #245edb 18%, #245edb 92%, #154aa7 100%);
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0 8px;
+    padding: 0;
     color: white;
-    backdrop-filter: blur(10px);
     z-index: 1000;
   }
 
   .taskbar-left {
     display: flex;
     align-items: center;
-    gap: 4px;
+    height: 100%;
+  }
+
+  .start-button {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    padding: 0 15px;
+    background: linear-gradient(to bottom, #3c993c 0%, #5ec945 9%, #3c993c 18%, #3c993c 92%, #2d7d2d 100%);
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+    cursor: pointer;
+    border: 1px solid #2d7d2d;
+    border-left: none;
+  }
+
+  .start-button:hover {
+    background: linear-gradient(to bottom, #44b444 0%, #6edb53 9%, #44b444 18%, #44b444 92%, #358535 100%);
+  }
+
+  .windows-logo {
+    width: 16px;
+    height: 16px;
+    margin-right: 5px;
+  }
+
+  .start-text {
+    font-family: Arial, sans-serif;
+    font-weight: bold;
+    font-size: 14px;
+    color: white;
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
+  }
+
+  .taskbar-separator {
+    width: 1px;
+    height: 85%;
+    background: linear-gradient(to bottom, #154aa7 0%, #67a6f7 50%, #154aa7 100%);
+    margin: 0 6px;
   }
 
   .taskbar-right {
     display: flex;
     align-items: center;
     gap: 16px;
-  }
-
-  .start-button {
-    padding: 8px;
-    cursor: pointer;
-    border-radius: 4px;
-    transition: background 0.2s;
-  }
-
-  .start-button:hover {
-    background: rgba(255, 255, 255, 0.1);
-  }
-
-  .windows-logo {
-    font-size: 18px;
   }
 
   .app-icons {

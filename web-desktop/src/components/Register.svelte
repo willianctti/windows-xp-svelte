@@ -36,44 +36,52 @@
 
 <div class="register-container">
   <div class="register-box">
-    <h2>Register</h2>
-    {#if error}
-      <div class="error">{error}</div>
-    {/if}
-    <form on:submit={handleRegister}>
-      <div class="input-group">
-        <label for="username">Username</label>
-        <input 
-          type="text" 
-          id="username" 
-          bind:value={username} 
-          required
-        />
-      </div>
-      <div class="input-group">
-        <label for="password">Senha</label>
-        <input 
-          type="password" 
-          id="password" 
-          bind:value={password} 
-          required
-        />
-      </div>
-      <div class="input-group">
-        <label for="confirm-password">Confirmar senha</label>
-        <input 
-          type="password" 
-          id="confirm-password" 
-          bind:value={confirmPassword} 
-          required
-        />
-      </div>
-      <button type="submit">Register</button>
-    </form>
-    <p class="login-link">
-      vc já tem uma conta? <a href="/login">Login</a>
-    </p>
+    <div class="window-content">
+      {#if error}
+        <div class="error">{error}</div>
+      {/if}
+      <form on:submit={handleRegister}>
+        <div class="form-container">
+          <img src="/userImage.jpg" alt="User" class="user-image" />
+          <div class="inputs-container">
+            <div class="input-group">
+              <label for="username">Username:</label>
+              <input
+                type="text"
+                id="username"
+                bind:value={username}
+                required
+              />
+            </div>
+            <div class="input-group">
+              <label for="password">Password:</label>
+              <input
+                type="password"
+                id="password"
+                bind:value={password}
+                required
+              />
+            </div>
+            <div class="input-group password-group">
+              <label for="confirm-password">Confirm Password:</label>
+              <div class="password-container">
+                <input
+                  type="password"
+                  id="confirm-password"
+                  bind:value={confirmPassword}
+                  required
+                />
+                <button type="submit">➜</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
   </div>
+  <p class="login-link">
+    Already have an account? <a href="/login">Sign in</a>
+  </p>
 </div>
 
 <style>
@@ -83,134 +91,125 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background: linear-gradient(45deg, #2c3e50, #3498db);
+    background: url('/auth.jpg') center/cover no-repeat;
   }
 
   .register-box {
-    background: white;
-    padding: 2rem;
+    background: linear-gradient(to right, #4167ce, #3191ff00);
+    position: absolute;
+    top: 50%;
+    left: 40%;
+    transform: translate(-50%, -50%);
     border-radius: 8px;
-    box-shadow: 0 0 20px rgba(0,0,0,0.2);
     width: 100%;
     max-width: 400px;
   }
 
-  h2 {
-    text-align: center;
-    margin-bottom: 1.5rem;
-    color: #2c3e50;
+  .window-content {
+    padding: 20px;
   }
 
   .input-group {
-    margin-bottom: 1rem;
+    margin-bottom: 15px;
   }
 
   label {
     display: block;
-    margin-bottom: 0.5rem;
-    color: #34495e;
+    margin-bottom: 5px;
+    color: white;
   }
 
   input {
     width: 100%;
-    padding: 0.5rem;
-    border: 1px solid #bdc3c7;
-    border-radius: 4px;
+    padding: 8px;
+    border: 2px solid #7F9DB9;
+    background: white;
+    border-radius: 3px;
   }
 
-  button {
-    width: 100%;
-    padding: 0.75rem;
-    background: #3498db;
+  input:focus {
+    border-color: #0054E3;
+    outline: none;
+  }
+
+  button[type="submit"] {
+    width: auto;
+    padding: 2px 7px;
+    background: linear-gradient(to right, #79ee79, #196719);
     color: white;
-    border: none;
-    border-radius: 4px;
+    border: 1px solid #228B22;
+    border-radius: 3px;
     cursor: pointer;
-    margin-top: 1rem;
+    font-weight: bold;
+    font-size: 16px;
   }
 
-  button:hover {
-    background: #2980b9;
+  button[type="submit"]:hover {
+    background: linear-gradient(to bottom, #32CD32, #228B22);
   }
 
   .error {
-    color: #e74c3c;
-    margin-bottom: 1rem;
-    text-align: center;
+    color: #CC0000;
+    background: #FFE6E6;
+    padding: 8px;
+    border: 1px solid #CC0000;
+    margin-bottom: 15px;
+    border-radius: 3px;
   }
 
   .login-link {
+    position: absolute;
+    bottom: 5%;
+    font-size: 20px;
     text-align: center;
-    margin-top: 1rem;
+    color: #FFE6E6;
+    text-shadow: 0 0 1px #000;
   }
 
-  a {
-    color: #3498db;
+  .login-link a {
+    color: #FFE6E6;
+    text-shadow: 0 0 1px #000;
     text-decoration: none;
   }
 
-  a:hover {
+  .login-link a:hover {
     text-decoration: underline;
   }
 
-  .login-container {
-    width: 100vw;
-    height: 100vh;
+  .form-container {
     display: flex;
+    gap: 20px;
     align-items: center;
-    justify-content: center;
-    background: linear-gradient(45deg, #2c3e50, #3498db);
+    margin-bottom: 15px;
   }
 
-  .login-box {
+  .user-image {
+    width: 100px;
+    height: 100px;
+    border: 2px solid #FFD700;
+    border-radius: 3px;
+  }
+
+  .inputs-container {
+    flex: 1;
+    color: #FFE6E6;
+  }
+
+  .password-group {
+    margin-bottom: 0;
+  }
+
+  .password-container {
+    display: flex;
+    gap: 5px;
+    align-items: center;
+  }
+
+  .input-group input {
+    width: 100%;
+    padding: 8px;
+    border: 2px solid #7F9DB9;
     background: white;
-    padding: 2rem;
-    border-radius: 8px;
-    box-shadow: 0 0 20px rgba(0,0,0,0.2);
-    width: 100%;
-    max-width: 400px;
+    border-radius: 3px;
   }
-
-  h2 {
-    text-align: center;
-    margin-bottom: 1.5rem;
-    color: #2c3e50;
-  }
-
-  .input-group {
-    margin-bottom: 1rem;
-  }
-
-  label {
-    display: block;
-    margin-bottom: 0.5rem;
-    color: #34495e;
-  }
-
-  input {
-    width: 100%;
-    padding: 0.5rem;
-    border: 1px solid #bdc3c7;
-    border-radius: 4px;
-  }
-
-  button {
-    width: 100%;
-    padding: 0.5rem;
-    background-color: #3498db;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-
-  .error {
-    color: red;
-    margin-bottom: 1rem;
-  }
-
-  .register-link {
-    text-align: center;
-    margin-top: 1rem;
-  }
-</style> 
+</style>

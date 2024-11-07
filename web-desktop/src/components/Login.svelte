@@ -31,35 +31,44 @@
 
 <div class="login-container">
   <div class="login-box">
-    <h2>Login</h2>
-    {#if error}
-      <div class="error">{error}</div>
-    {/if}
-    <form on:submit={handleLogin}>
-      <div class="input-group">
-        <label for="username">Username</label>
-        <input 
-          type="text" 
-          id="username" 
-          bind:value={username} 
-          required
-        />
-      </div>
-      <div class="input-group">
-        <label for="password">Senha</label>
-        <input 
-          type="password" 
-          id="password" 
-          bind:value={password} 
-          required
-        />
-      </div>
-      <button type="submit">Login</button>
-    </form>
-    <p class="register-link">
-      vc n tem uma conta? <a href="/register">Register</a>
-    </p>
+    <div class="window-content">
+      {#if error}
+        <div class="error">{error}</div>
+      {/if}
+      <form on:submit={handleLogin}>
+        <div class="form-container">
+          <img src="/userImage.jpg" alt="User" class="user-image" />
+          <div class="inputs-container">
+            <div class="input-group">
+              <label for="username">Username:</label>
+              <input
+                type="text"
+                id="username"
+                bind:value={username}
+                required
+              />
+            </div>
+            <div class="input-group password-group">
+              <label for="password">Type your password:</label>
+              <div class="password-container">
+                <input
+                  type="password"
+                  id="password"
+                  bind:value={password}
+                  required
+                />
+                <button type="submit">➜</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
   </div>
+  <p class="register-link">
+    Don't have an account? <a href="/register">Sign up</a>
+  </p>
+
 </div>
 
 <style>
@@ -69,58 +78,153 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background: linear-gradient(45deg, #2c3e50, #3498db);
+    background: url('/auth.jpg') center/cover no-repeat;
   }
 
   .login-box {
-    background: white;
-    padding: 2rem;
+    background: linear-gradient(to right, #4167ce, #3191ff00);
+    position: absolute;
+    top: 50%;
+    left: 40%;
+    transform: translate(-50%, -50%);
     border-radius: 8px;
-    box-shadow: 0 0 20px rgba(0,0,0,0.2);
     width: 100%;
     max-width: 400px;
   }
 
+  .title-bar {
+    background: linear-gradient(to right, #0054E3, #2787F5);
+    color: white;
+    padding: 5px 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 8px 8px 0 0;
+  }
+
+  .close-button {
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+  }
+
+  .window-content {
+    padding: 20px;
+  }
+
+  .logo {
+    font-size: 48px;
+    text-align: center;
+    margin-bottom: 10px;
+  }
+
   h2 {
     text-align: center;
-    margin-bottom: 1.5rem;
-    color: #2c3e50;
+    color: #0054E3;
+    margin-bottom: 20px;
   }
 
   .input-group {
-    margin-bottom: 1rem;
+    margin-bottom: 15px;
   }
 
   label {
     display: block;
-    margin-bottom: 0.5rem;
-    color: #34495e;
+    margin-bottom: 5px;
+    color: white;
   }
 
   input {
     width: 100%;
-    padding: 0.5rem;
-    border: 1px solid #bdc3c7;
-    border-radius: 4px;
+    padding: 8px;
+    border: 2px solid #7F9DB9;
+    background: white;
+    border-radius: 3px;
   }
 
-  button {
-    width: 100%;
-    padding: 0.5rem;
-    background-color: #3498db;
+  input:focus {
+    border-color: #0054E3;
+    outline: none;
+  }
+
+  button[type="submit"] {
+    width: auto;
+    padding: 2px 7px;
+    background: linear-gradient(to right, #79ee79, #196719);
     color: white;
-    border: none;
-    border-radius: 4px;
+    border: 1px solid #228B22;
+    border-radius: 3px;
     cursor: pointer;
+    font-weight: bold;
+    font-size: 16px;
+  }
+
+  button[type="submit"]:hover {
+    background: linear-gradient(to bottom, #32CD32, #228B22);
   }
 
   .error {
-    color: red;
-    margin-bottom: 1rem;
+    color: #CC0000;
+    background: #FFE6E6;
+    padding: 8px;
+    border: 1px solid #CC0000;
+    margin-bottom: 15px;
+    border-radius: 3px;
   }
 
   .register-link {
+    position: absolute;
+    bottom: 5%;
+    font-size: 20px;
     text-align: center;
-    margin-top: 1rem;
+    color: #FFE6E6;
+    text-shadow: 0 0 1px #000;
   }
-</style> 
+
+  .register-link a {
+    color: #FFE6E6;
+    text-shadow: 0 0 1px #000;
+    text-decoration: none;
+  }
+
+  .register-link a:hover {
+    text-decoration: underline;
+  }
+
+  .form-container {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    margin-bottom: 15px;
+  }
+
+  .user-image {
+    width: 100px;
+    height: 100px;
+    border: 2px solid #FFD700;
+    border-radius: 3px;
+  }
+
+  .inputs-container {
+    flex: 1;
+  }
+
+  .password-group {
+    margin-bottom: 0;
+  }
+
+  .password-container {
+    display: flex;
+    gap: 5px;
+    align-items: center;
+  }
+
+  .input-group input {
+    width: 100%;
+    padding: 8px;
+    border: 2px solid #7F9DB9;
+    background: white;
+    border-radius: 3px;
+  }
+</style>
