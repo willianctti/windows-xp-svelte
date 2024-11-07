@@ -5,13 +5,15 @@
   import BrowserContent from './BrowserContent.svelte';
   import SettingsContent from './SettingsContent.svelte';
   import MsnContent from './MsnContent.svelte';
+  import GameContent from './GameContent.svelte';
   
   let windows = [];
   let icons = [
   { id: 1, name: 'Meus Documentos', icon: '📁', type: 'documents' },
   { id: 2, name: 'Navegador', icon: '🌐', type: 'browser' },
   { id: 3, name: 'Configurações', icon: '⚙️', type: 'settings' },
-  { id: 4, name: 'MSN', icon: 'public/msgLogo.png', type: 'msn' }
+  { id: 4, name: 'MSN', icon: 'public/msgLogo.png', type: 'msn' },
+  { id: 5, name: 'Encontre o gato', icon: '🎮', type: 'game' }
 ];
 
   function getContentComponent(type) {
@@ -24,6 +26,8 @@
         return SettingsContent;
       case 'msn':
         return MsnContent;
+      case 'game':
+        return GameContent;
       default:
         return null;
     }
