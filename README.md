@@ -1,12 +1,17 @@
-# Windows XP in Svelte (Pure JS!)
+# Windows XP with Svelte and JS
 
-A Windows XP simulator in browser. With authentication, register, login, create a folder, create a notepad, RPG Game and a incredible MSN that works with chat gpt!!!. 
-
+A Windows XP simulator in browser. With authentication, register, login, create a folder, create a notepad, RPG Game, Draw in Paint, Code editor with preview and a incredible MSN that works with chat gpt. 
+## Usage
 ![image](https://github.com/user-attachments/assets/81c785c2-802b-4a80-8792-2deb85be17ff)
 
-RPG Game
+## RPG Game
 ![image](https://github.com/user-attachments/assets/fcd0004e-fb72-4087-8b18-1c40dfd915b9)
 
+## Paint
+![image](https://github.com/user-attachments/assets/cd581bde-d4d6-4d3d-b51a-598ed239f350)
+
+## Code editor with preview
+![image](https://github.com/user-attachments/assets/db6ed0cf-1b1f-4f4c-bc79-48a42e63b07e)
 
 
 ## 🚀 Quick Start
