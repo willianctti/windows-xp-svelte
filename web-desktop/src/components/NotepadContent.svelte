@@ -77,7 +77,8 @@
     .notepad {
       display: flex;
       flex-direction: column;
-      height: 100%;
+      height: 600px;
+      width: 800px;
       background: white;
     }
   

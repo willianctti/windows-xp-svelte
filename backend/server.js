@@ -9,6 +9,8 @@ const app = express();
 const PORT = 3000;
 const JWT_SECRET = "your-secret-key";
 
+console.log('Server starting...');
+
 app.use(
   cors({
     origin: "http://localhost:5173",
@@ -165,6 +167,66 @@ app.put("/api/notepad", authenticateToken, (req, res) => {
   );
 });
 
+
+app.get("/api/code-editor/files", authenticateToken, (req, res) => {
+  const userId = req.user.id;
+
+  db.all(
+    "SELECT * FROM code_files WHERE user_id = ? ORDER BY file_path",
+    [userId],
+    (err, files) => {
+      if (err) {
+        console.error('Error fetching files:', err);
+        return res.status(500).json({ error: "Failed to fetch files" });
+      }
+      console.log('Files found:', files);
+      res.json(files || []);
+    }
+  );
+});
+
+app.post("/api/code-editor/save", authenticateToken, (req, res) => {
+  const { path, content } = req.body;
+  const userId = req.user.id;
+
+  db.run(
+    "INSERT OR REPLACE INTO code_files (user_id, file_path, content) VALUES (?, ?, ?)",
+    [userId, path, content],
+    function(err) {
+      if (err) {
+        console.error('Error saving file:', err);
+        return res.status(500).json({ error: "Failed to save file" });
+      }
+      console.log('File saved successfully');
+      res.json({ 
+        id: this.lastID,
+        file_path: path,
+        content: content
+      });
+    }
+  );
+});
+
+app.delete("/api/code-editor/files/:path", authenticateToken, (req, res) => {
+  const userId = req.user.id;
+  const filePath = decodeURIComponent(req.params.path);
+
+  db.run(
+    "DELETE FROM code_files WHERE user_id = ? AND file_path = ?",
+    [userId, filePath],
+    function(err) {
+      if (err) {
+        console.error('Error deleting file:', err);
+        return res.status(500).json({ error: "Failed to delete file" });
+      }
+      if (this.changes === 0) {
+        return res.status(404).json({ error: "File not found" });
+      }
+      res.json({ success: true });
+    }
+  );
+});
+
 app.listen(PORT, () => {
-  console.log(`To roadndo na porta ${PORT}`);
+  console.log(`rodandoooo porta ${PORT}`);
 });

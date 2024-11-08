@@ -7,6 +7,7 @@
   import MsnContent from './MsnContent.svelte';
   import GameContent from './GameContent.svelte';
   import PaintContent from './PaintContent.svelte';
+  import CodeEditorContent from './CodeEditorContent.svelte';
   let windows = [];
   let icons = [
   { id: 1, name: 'Meus Documentos', icon: '📁', type: 'documents' },
@@ -14,7 +15,8 @@
   { id: 3, name: 'Configurações', icon: '⚙️', type: 'settings' },
   { id: 4, name: 'MSN', icon: 'public/msgLogo.png', type: 'msn' },
   { id: 5, name: 'Encontre o gato', icon: '🎮', type: 'game' },
-  { id: 6, name: 'Paint', icon: '🎨', type: 'paint' }
+  { id: 6, name: 'Paint', icon: '🎨', type: 'paint' },
+  { id: 7, name: 'Editor de código', icon: '💻', type: 'code-editor' }
 ];
 
   function getContentComponent(type) {
@@ -31,6 +33,8 @@
         return GameContent;
       case 'paint':
         return PaintContent;
+      case 'code-editor':
+        return CodeEditorContent;
       default:
         return null;
     }

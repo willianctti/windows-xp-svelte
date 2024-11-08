@@ -55,6 +55,25 @@ db.serialize(() => {
       )
     `
   );
+
+  db.run(`
+    CREATE TABLE IF NOT EXISTS code_files (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      user_id INTEGER NOT NULL,
+      file_path TEXT NOT NULL,
+      content TEXT,
+      created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+      updated_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+      FOREIGN KEY (user_id) REFERENCES users(id),
+      UNIQUE(user_id, file_path)
+    )
+  `, (err) => {
+    if (err) {
+      console.error('Error creating code_files table:', err);
+    } else {
+      console.log('code_files table ready');
+    }
+  });
 });
 
 module.exports = db;
